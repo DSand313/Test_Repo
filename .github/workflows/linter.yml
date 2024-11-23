@@ -1,0 +1,37 @@
+name: Compare Two Repositories
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compare-repos:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout trigger repository
+      uses: actions/checkout@v4
+      with:
+        repository: drew-sandusky-fsn/monorepo   # This will change to fsn/monorepo
+        ref: main
+        path: repo-one
+    
+    - name: Checkout trigger repository
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}
+        ref: ${{ github.head_ref }}
+        path: repo-two
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Run git diff
+      run: |
+        git diff --name-only --no-index repo-one repo-two \
+        | grep '.php$' \
+        | xargs -I {} php -l {}
