@@ -21,7 +21,7 @@ jobs:
       run: |
         git fetch origin main
         git checkout -b main-2.0 origin/main
-        git diff --name-only ${{ github.head_ref }..main-2.0
+        git diff --name-only ${{ github.head_ref }}..main-2.0
       # The above will change to flowershopnetwork/main.git
 
     # - name: Set up PHP
