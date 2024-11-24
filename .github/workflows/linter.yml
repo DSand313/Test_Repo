@@ -13,16 +13,15 @@ jobs:
     
     - name: Checkout trigger repository
       uses: actions/checkout@v4
-      with:
-        repository: ${{ github.repository }}
-        ref: ${{ github.head_ref }}
 
     - name: Add remote
       run: |
-        git fetch origin main
-        git checkout -b main-2.0 origin/main
-        git branch
-        git diff --name-only ${{ github.head_ref }}..main-2.0
+        cat sample.php
+        git remote add origin https://github.com/${{ github.repository }}.git
+        git fetch origin ${{ github.head_ref }}
+        git checkout -b main-2.0 origin/${{ github.head_ref }}
+        cat sample.php
+        git diff --name-only main..main-2.0
       # The above will change to flowershopnetwork/main.git
 
     # - name: Set up PHP
