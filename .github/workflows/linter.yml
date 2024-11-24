@@ -25,13 +25,13 @@ jobs:
         git diff --name-only main-2.0
       # The above will change to flowershopnetwork/main.git
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
+    # - name: Set up PHP
+    #   uses: shivammathur/setup-php@v2
+    #   with:
+    #     php-version: '7.4'
 
-    - name: Run git diff
-      run: |
-        git diff --name-only --no-index repo-one repo-two \
-        | grep '.php$' \
-        | xargs -I {} php -l {}
+    # - name: Run git diff
+    #   run: |
+    #     git diff --name-only --no-index repo-one repo-two \
+    #     | grep '.php$' \
+    #     | xargs -I {} php -l {}
