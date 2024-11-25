@@ -27,6 +27,7 @@ jobs:
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
         git branch -r
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
+        cat sample.php
         git diff --name-only origin/main \
         | grep '.php$' \
         | xargs -I {} php -l {}
