@@ -1,2 +1,1 @@
-echo "Sup Dawg"
-hv
+echo "Sup Dawg
