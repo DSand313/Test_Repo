@@ -18,9 +18,8 @@ jobs:
 
     - name: whatever
       run: |
-        git branch
-        git status
-        git remote -v
+        git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
+        git branch -r
 
     # - name: Set up PHP
     #   uses: shivammathur/setup-php@v2
