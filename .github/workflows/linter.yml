@@ -18,7 +18,10 @@ jobs:
 
     - name: Fetch remotes
       run: |
+        pwd
         ls
+        git status
+        git branch
       # git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
       # git fetch repo_2 ${{ github.event.pull_request.head.ref }}
 
