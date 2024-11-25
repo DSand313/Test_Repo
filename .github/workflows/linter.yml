@@ -18,27 +18,17 @@ jobs:
 
     - name: Fetch remotes
       run: |
-        pwd
-        ls
-        git status
-        git branch
-        cat sample.php
         git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
-        git branch -r
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
-        cat sample.php
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        
+    - name: Run git diff & lint
+      run: |
         git diff --name-only origin/main \
         | grep '.php$' \
         | xargs -I {} php -l {}
-
-    # - name: Set up PHP
-    #   uses: shivammathur/setup-php@v2
-    #   with:
-    #     php-version: '7.4'
-        
-    # - name: Run git diff
-    #   run: |
-    #     git diff --name-only origin/main..repo_2/${{ github.event.pull_request.head.ref }} \
-    #     | grep '.php$' \
-    #     | xargs -I {} php -l {}
