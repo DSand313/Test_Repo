@@ -28,6 +28,8 @@ jobs:
     
     - name: Add remote
       run: |
+        git checkout main
+        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
         git fetch origin ${{ github.event.pull_request.head.ref }}
         git checkout -b main-2.0 origin/${{ github.event.pull_request.head.ref }}
         git diff --name-only main..main-2.0
