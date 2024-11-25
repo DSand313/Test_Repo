@@ -13,16 +13,24 @@ jobs:
     
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        ref: main
 
-    - name: Run git diff
+    - name: whatever
       run: |
-        git fetch --all
         git branch
-        git diff --name-only origin/main..HEAD \
-        | grep '.php$' \
-        | xargs -I {} php -l {}
+        git status
+        git remote -v
+
+    # - name: Set up PHP
+    #   uses: shivammathur/setup-php@v2
+    #   with:
+    #     php-version: '7.4'
+
+    # - name: Run git diff
+    #   run: |
+    #     git fetch --all
+    #     git branch
+    #     git diff --name-only origin/main..HEAD \
+    #     | grep '.php$' \
+    #     | xargs -I {} php -l {}
