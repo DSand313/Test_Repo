@@ -14,23 +14,14 @@ jobs:
     - name: Checkout trigger repository
       uses: actions/checkout@v4
 
-    # - name: Add remote
-    #   run: |
-    #     git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-    
-    - name: Add remote
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Run git diff
       run: |
         git fetch --all
-        git remote -v
         git diff --name-only origin/main..HEAD
-
-    # - name: Set up PHP
-    #   uses: shivammathur/setup-php@v2
-    #   with:
-    #     php-version: '7.4'
-
-    # - name: Run git diff
-    #   run: |
-    #     git diff --name-only --no-index repo-one repo-two \
-    #     | grep '.php$' \
-    #     | xargs -I {} php -l {}
+        | grep '.php$' \
+        | xargs -I {} php -l {}
