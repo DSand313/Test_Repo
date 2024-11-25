@@ -10,9 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: test
+      run: |
+        echo ${{ github.repository }}
+        echo ${{ github.head_ref }}
     
     - name: Checkout trigger repository
       uses: actions/checkout@v4
+
+    - name: test
+      run: |
+        echo ${{ github.repository }}
+        echo ${{ github.head_ref }}
 
     - name: Add remote
       run: |
