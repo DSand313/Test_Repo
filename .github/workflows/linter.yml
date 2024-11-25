@@ -22,8 +22,10 @@ jobs:
         ls
         git status
         git branch
-      # git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-      # git fetch repo_2 ${{ github.event.pull_request.head.ref }}
+        cat sample.php
+        git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
+        git fetch repo_2 ${{ github.event.pull_request.head.ref }}
+        git branch -r
 
     # - name: Set up PHP
     #   uses: shivammathur/setup-php@v2
