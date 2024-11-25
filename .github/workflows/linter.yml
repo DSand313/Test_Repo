@@ -10,28 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-    - name: test
-      run: |
-        echo ${{ github.event.pull_request.head.repo.full_name }}
-        echo ${{ github.event.pull_request.head.ref }}
     
     - name: Checkout trigger repository
       uses: actions/checkout@v4
 
-    - name: test
-      run: |
-        echo ${{ github.repository }}
-        echo ${{ github.head_ref }}
-
     - name: Add remote
       run: |
-        git remote add origin https://github.com/${{ github.repository }}.git
-        git fetch origin ${{ github.head_ref }}
-        git checkout -b main-2.0 origin/${{ github.head_ref }}
+        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
+        git fetch origin ${{ github.event.pull_request.head.ref }}
+        git checkout -b main-2.0 origin/${{ github.event.pull_request.head.ref }}
         git diff --name-only main..main-2.0
-        echo ${{ github.event }}
-      # The above will change to flowershopnetwork/main.git
 
     # - name: Set up PHP
     #   uses: shivammathur/setup-php@v2
