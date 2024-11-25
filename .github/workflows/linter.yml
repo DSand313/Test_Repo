@@ -28,6 +28,6 @@ jobs:
 
     - name: Run git diff
       run: |
-        git diff --name-only repo_2/${{ github.event.pull_request.head.ref }}..origin/main
+        git diff --name-only repo_2/${{ github.event.pull_request.head.ref }}..origin/main \
         | grep '.php$' \
         | xargs -I {} php -l {}
