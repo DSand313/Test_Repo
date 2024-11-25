@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+    - name: Checkout trigger repository
+      uses: actions/checkout@v4
+
+    # - name: Add remote
+    #   run: |
+    #     git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
 
     - name: test
       run: |
@@ -19,13 +26,6 @@ jobs:
         echo ${{ github.event.pull_request.head.ref }}
         echo ${{ github.event.pull_request.head.repo.full_name }}
     
-    - name: Checkout trigger repository
-      uses: actions/checkout@v4
-
-    # - name: Add remote
-    #   run: |
-    #     git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-
     - name: Add remote
       run: |
         git fetch origin ${{ github.event.pull_request.head.ref }}
