@@ -1,4 +1,4 @@
-name: PHP_Linter
+name: PHP_Linter_pt.2
 
 on:
   pull_request:
@@ -14,21 +14,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: main
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Fetch remotes
-      run: |
-        git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-        git fetch repo_2 ${{ github.event.pull_request.head.ref }}
-        git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
+    - name: PHP Syntax Checker (Lint)
+      uses: StephaneBour/actions-php-lint@7.4
       with:
-        php-version: '7.4'
-        
-    - name: Run git diff & lint
-      run: |
-        git diff --name-only origin/main \
-        | grep '.php$' \
-        | xargs -I {} php -l {}
+        dir: '.'
