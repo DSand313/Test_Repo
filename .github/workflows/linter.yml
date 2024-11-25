@@ -17,25 +17,10 @@ jobs:
     # - name: Add remote
     #   run: |
     #     git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-
-    - name: test
-      run: |
-        pwd 
-        git branch
-        git branch -r
-        git status
-        git remote -v
-        echo ${{ github.event.pull_request.head.ref }}
-        echo ${{ github.event.pull_request.head.repo.full_name }}
     
     - name: Add remote
       run: |
-        git checkout master
-        git branch
-        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-        git fetch origin ${{ github.event.pull_request.head.ref }}
-        git checkout -b main-2.0 origin/${{ github.event.pull_request.head.ref }}
-        git diff --name-only main..main-2.0
+        git diff --name-only origin/main..HEAD
 
     # - name: Set up PHP
     #   uses: shivammathur/setup-php@v2
