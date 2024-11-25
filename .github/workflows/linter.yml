@@ -1,4 +1,4 @@
-name: Compare Two Repositories
+name: PHP_Linter
 
 on:
   pull_request:
@@ -16,21 +16,18 @@ jobs:
       with:
         ref: main
 
-    - name: whatever
+    - name: Fetch remotes
       run: |
         git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Run git diff
+      run: |
         git diff --name-only repo_2/${{ github.event.pull_request.head.ref }}..origin/main
-
-    # - name: Set up PHP
-    #   uses: shivammathur/setup-php@v2
-    #   with:
-    #     php-version: '7.4'
-
-    # - name: Run git diff
-    #   run: |
-    #     git fetch --all
-    #     git branch
-    #     git diff --name-only origin/main..HEAD \
-    #     | grep '.php$' \
-    #     | xargs -I {} php -l {}
+        | grep '.php$' \
+        | xargs -I {} php -l {}
