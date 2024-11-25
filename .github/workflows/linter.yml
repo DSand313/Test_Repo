@@ -10,6 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: test
+      run: |
+        pwd 
+        git status
+        git remote -v
+        echo ${{ github.event.pull_request.head.ref }}
+        echo ${{ github.event.pull_request.head.repo.full_name }}
     
     - name: Checkout trigger repository
       uses: actions/checkout@v4
