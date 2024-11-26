@@ -21,9 +21,10 @@ jobs:
         git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
-        git diff --name-only origin/main > whatever.txt
+        mkdir whatever
+        git diff --name-only origin/main > ./whatever 
 
     - name: PHP Syntax Checker (Lint)
       uses: StephaneBour/actions-php-lint@7.4
       with:
-        dir: './whatever.txt'
+        dir: './whatever'
