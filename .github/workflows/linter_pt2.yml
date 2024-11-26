@@ -1,4 +1,4 @@
-name: PHP_Linter
+name: PHP_Linter_pt2
 
 on:
   pull_request:
