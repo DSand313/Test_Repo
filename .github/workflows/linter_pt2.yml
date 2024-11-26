@@ -22,7 +22,7 @@ jobs:
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
         mkdir whatever
-        git diff --name-only origin/main > ./whatever 
+        git diff --name-only origin/main | xargs -I {} cp {} ./whatever
 
     - name: PHP Syntax Checker (Lint)
       uses: StephaneBour/actions-php-lint@7.4
