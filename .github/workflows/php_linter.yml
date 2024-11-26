@@ -1,4 +1,4 @@
-name: PHP_Linter_pt2
+name: PHP_Linter
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  compare-repos:
+  linting_php_files:
     runs-on: ubuntu-latest
 
     steps:
