@@ -24,11 +24,11 @@ jobs:
         git fetch repo_2 ${{ github.event.pull_request.head.ref }}
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
         mkdir test
-        git diff --name-only origin/main | grep '\.php$' | xargs -I {} cp {} ./test
+        git diff --name-status --diff-filter=AM main..HEAD -- '*.php' | xargs -I {} cp --parents {} ./test
 
       # Adds the repo and branch associated with the pull request that triggered the workflow
       # Checks out the pull request branch to first repo
-      # git diff pulls in the php files that have changed from the main branch to the pull request branch
+      # git diff pulls in the added and modified php files (and their paths) that have changed from the pull request branch relative to the main branch 
 
     - name: PHP Syntax Checker (Lint)
       uses: StephaneBour/actions-php-lint@7.4
