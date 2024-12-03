@@ -25,6 +25,7 @@ jobs:
         git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
         mkdir test
         git diff --name-only --diff-filter=AM main..HEAD -- '*.php' | xargs -I {} cp --parents {} ./test
+        ls ./test
 
       # Adds the repo and branch associated with the pull request that triggered the workflow
       # Checks out the pull request branch to first repo
