@@ -15,12 +15,9 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: main
+        fetch-depth: 0
 
       # Checks out the repo where the yml file sits
-
-    - name: Checkout main
-      run: |
-        git checkout main
 
     - name: Fetch remotes & git diff
       run: |
