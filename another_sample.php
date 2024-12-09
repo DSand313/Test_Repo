@@ -1,4 +1,4 @@
 <?php
 
-echo "Some kind of nonsense"
+echo "Some kind of nonsense";
 echo "What if..."
