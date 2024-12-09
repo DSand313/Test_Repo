@@ -13,9 +13,9 @@ jobs:
     
     - name: Checkout repo
       uses: actions/checkout@v4
-      with:
-        ref: main
-        fetch-depth: 0
+      # with:
+      #   ref: main
+      #   fetch-depth: 0
 
     - name: Echo object
       run: |
