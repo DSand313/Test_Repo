@@ -17,6 +17,10 @@ jobs:
         ref: main
         fetch-depth: 0
 
+    - name: Echo object
+      run: |
+        echo ${{ toJSON(github) }}
+
     - name: Fetch remotes & git diff
       run: |
         git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
