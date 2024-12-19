@@ -1,4 +1,4 @@
-name: PHP_Linter
+name: PHP Syntax Check
 
 on:
   pull_request:
@@ -6,31 +6,21 @@ on:
       - main
 
 jobs:
-  linting_php_files:
-    runs-on: ubuntu-latest
+  Lint_changed_PHP_files:
+    runs-on: ubuntu-24.04
 
     steps:
-    
-    - name: Checkout repo
-      uses: actions/checkout@v4
-      # with:
-      #   ref: main
-      #   fetch-depth: 0
+      - name: Checkout pull request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-    - name: Echo object
-      run: |
-        echo ${{ toJSON(github) }}
+      - name: Copy changed PHP files
+        run: |
+          mkdir lint
+          git diff -z --name-only --diff-filter=AM HEAD^ -- '*.php' | xargs -0 cp --parents -t ./lint
 
-    - name: Fetch remotes & git diff
-      run: |
-        git remote add repo_2 https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
-        git fetch repo_2 ${{ github.event.pull_request.head.ref }}
-        git checkout -b main_2.0 repo_2/${{ github.event.pull_request.head.ref }}
-        mkdir lint
-        git diff -z --name-only --diff-filter=AM main...main_2.0 -- '*.php' | xargs -0 cp --parents -t ./lint
-        ls ./lint
-
-    - name: PHP Syntax Checker (Lint)
-      uses: StephaneBour/actions-php-lint@7.4
-      with:
-        dir: './lint'
+      - name: Files to lint
+        run: |
+          cd ./lint
+          find . -type f | xargs php -l | (! grep -Ev '^No syntax errors detected in ')
