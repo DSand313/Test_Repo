@@ -23,4 +23,5 @@ jobs:
       - name: Files to lint
         run: |
           cd ./lint
-          find . -type f -exec php -l {} \; | (! grep -Ev '^No syntax errors detected in ')
+          files=$(find . -type f -print0 | wc -l)
+          find . -type f -print0 | xargs -0 -P $files -I {} php -l {}
